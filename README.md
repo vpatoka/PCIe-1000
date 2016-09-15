@@ -24,4 +24,63 @@ times per second and retrieve monotonically advancing time.
 
 The initial Linux driver for PCIe-1000 (SourceRelease-1.02) has driver for older Linux kernel. It was confirmed it works on 2.6 and 3.0 kernel.
 
+
+Here how its looks like:
+
+[31910.651463] bc750 I/O resource assignment
+[31910.651468]   PCI BAR 0: phy: 0x00000000fe300000, base: 0xffffc90001400000, length: 1048576
+[31910.651471]   PCI BAR 1: phy: 0x00000000fe200000, base: 0xffffc90001600000, length: 1048576
+[31910.651473]   PCI BAR 2: phy: 0x00000000fe100000, base: 0xffffc90001800000, length: 1048576
+[31910.651475]   PCI BAR 3: not configured.
+[31910.651477]   PCI BAR 4: phy: 0x00000000fe0c0000, base: 0xffffc90001280000, length: 262144
+[31910.651478]   PCI BAR 5: not configured.
+[31910.651480] bc750 IRQ: 17
+[31910.651483] bc750 host DMA address: 0xda52c000
+[31910.651542] bcpci0: created.
+[31910.651570] symmbc7x: loaded.
+
+06:00.0 Power PC: Freescale Semiconductor Inc MPC8308 (rev 10)
+        Subsystem: Datum Inc. Bancomm-Timing Division MPC8308
+        Flags: fast devsel, IRQ 17
+        Memory at fe300000 (32-bit, non-prefetchable) [size=1M]
+        Memory at fe200000 (32-bit, non-prefetchable) [size=1M]
+        Memory at fe100000 (64-bit, non-prefetchable) [size=1M]
+        Memory at fe0c0000 (64-bit, non-prefetchable) [size=256K]
+        Capabilities: [44] Power Management version 2
+        Capabilities: [4c] Express Endpoint, MSI 00
+        Capabilities: [70] MSI: Enable- Count=1/16 Maskable- 64bit+
+        Capabilities: [100] Advanced Error Reporting
+        Capabilities: [138] Virtual Channel
+        Capabilities: [3f8] Vendor Specific Information: ID=0000 Rev=1 Len=bfc <?>
+        Kernel driver in use: bc750
+        
+                          PTP 
+********************************************************************************
+PTP Started Successfully!
+********************************************************************************
+
+
+================================================================================
+                              Symmetricom, Inc.
+                                PCIe-1000 UI
+================================================================================
+        1. Start PTP                      2. Stop PTP
+        3. PTP Management Messages        4. Network Configuration
+        5. Software Upgrade               6. Version Info
+        7. Read Time From Host Memory     8. Read Time From Target Memory
+        9. BC Pass-thru Command          10. System Status
+        0. Exit the Program
+
+
+        Select Option: 10
+
+
+********************************************************************************
+                          BC System Status 
+********************************************************************************
+PTP: Running
+
+********************************************************************************        
+
+
 I modified the code to bring it works for Ubuntu 16.04 (Linux kernel 4.0)
