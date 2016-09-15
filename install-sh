@@ -1,0 +1,47 @@
+#!/bin/bash
+
+#
+# copy the udev rule
+#
+
+udevdir=/etc/udev/rules.d
+[ ! -d $udevdir ] && sudo mkdir -p $udevdir
+sudo cp 99-bcpci.rules $udevdir
+
+#
+# ensure the driver is built
+#
+
+driver=$(ls *.ko)
+if [ $? -ne 0 ]; then
+    echo "Driver not found.  Please build driver."
+    exit 1
+fi
+
+#
+# remove the module if it was installed
+#
+
+base=${driver%.ko}
+lsmod | grep $base > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo "Module exists.  Remove and re-installing..."
+    sudo rmmod $driver
+fi
+
+if [ -f ${moddir}/$driver ]; then
+    sudo rm -f ${moddir}/$driver
+fi
+
+#
+# copy and install the driver
+#
+
+moddir="/lib/modules/`uname -r`/kernel/drivers/pci"
+[ ! -d $moddir ] && sudo mkdir -p $moddir
+
+sudo cp -f $driver ${moddir}
+sudo insmod ${moddir}/$driver
+
+echo "Done."
+exit 0
